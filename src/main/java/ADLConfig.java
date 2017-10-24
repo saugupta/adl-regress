@@ -1,5 +1,5 @@
 
-public class Config {
+public class ADLConfig {
 	private  String accountFQDN; 
     private  String clientId;
     private  String authTokenEndpoint;
@@ -8,14 +8,14 @@ public class Config {
     public String getAccountFQDN() {
 		return accountFQDN;
 	}
-	public Config setAccountName(String accountName) {
+	public ADLConfig setAccountName(String accountName) {
 		this.accountFQDN = accountName+".azuredatalakestore.net";
 		return this;
 	}
 	public String getClientId() {
 		return clientId;
 	}
-	public Config setClientId(String clientId) {
+	public ADLConfig setClientId(String clientId) {
 		this.clientId = clientId;
 		return this;
 	}
@@ -23,7 +23,7 @@ public class Config {
 		return authTokenEndpoint;
 	}
 	
-	public Config setTenantId(String tenantId) {
+	public ADLConfig setTenantId(String tenantId) {
 		this.tenantId=tenantId;
 		this.authTokenEndpoint = "https://login.windows.net/"+tenantId+"/oauth2/token";
 		return this;
@@ -35,11 +35,11 @@ public class Config {
 	public String getClientKey() {
 		return clientKey;
 	}
-	public Config setClientKey(String clientKey) {
+	public ADLConfig setClientKey(String clientKey) {
 		this.clientKey = clientKey;
 		return this;
 	} 
-	public Config build(){
+	public ADLConfig build(){
 		return this;
 	}
 }

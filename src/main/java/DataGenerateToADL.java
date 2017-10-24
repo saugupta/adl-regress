@@ -25,10 +25,10 @@ import com.microsoft.azure.datalake.store.oauth2.ClientCredsTokenProvider;
 
 public class DataGenerateToADL {
 	static XSSFRow row;
-	private Config config;
+	private ADLConfig config;
 	private AccessTokenProvider provider;
     private ADLStoreClient client;
-    public DataGenerateToADL(Config config){
+    public DataGenerateToADL(ADLConfig config){
     	this.config=config;
     	this.provider = new ClientCredsTokenProvider(config.getAuthTokenEndpoint(), config.getClientId(),config.getClientKey());;
     	this.client = ADLStoreClient.createClient(config.getAccountFQDN(), provider);
@@ -132,7 +132,7 @@ public class DataGenerateToADL {
 		noOfRecords=Long.parseLong(args[4]);
 		pathADL=args[5];
 		noOfThreads=Integer.parseInt(args[6]);
-		Config config= new Config().setAccountName(args[0]).setTenantId(args[1]).setClientId(args[2]).setClientKey(args[3]).build();	
+		ADLConfig config= new ADLConfig().setAccountName(args[0]).setTenantId(args[1]).setClientId(args[2]).setClientKey(args[3]).build();	
 		DataGenerateToADL generate= new DataGenerateToADL(config);
 		generate.generateData(noOfRecords, pathADL, noOfThreads);
 		

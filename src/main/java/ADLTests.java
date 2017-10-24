@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.Date;
@@ -24,10 +23,10 @@ import com.microsoft.azure.datalake.store.oauth2.ClientCredsTokenProvider;
 		private enum Store{
 			ADL, LOCAL
 		}
-		private Config config; 
+		private ADLConfig config; 
 		private AccessTokenProvider provider;
 	    private ADLStoreClient client;
-	      public ADLTests(Config config){
+	      public ADLTests(ADLConfig config){
 	    	  	this.config=config;
 	    	 	this.provider = new ClientCredsTokenProvider(config.getAuthTokenEndpoint(), config.getClientId(),config.getClientKey());
 	    		this.client = ADLStoreClient.createClient(config.getAccountFQDN(), provider);  			 
@@ -101,7 +100,7 @@ import com.microsoft.azure.datalake.store.oauth2.ClientCredsTokenProvider;
 	    	if(args.length<7)
 	    		throw new Exception("Please pass required Parameters: AccountFQDN\t"
 	    				+ "TenantId\t"+"ClientId\t"+"ClientSecret\t"+ "downloadPathOnADL\t"+"uploadPathOnADL\t"+ "pathLocal");
-	    	ADLTests tests= new ADLTests(new Config().setAccountName(args[0]).setTenantId(args[1]).setClientId(args[2]).setClientKey(args[3]).build());
+	    	ADLTests tests= new ADLTests(new ADLConfig().setAccountName(args[0]).setTenantId(args[1]).setClientId(args[2]).setClientKey(args[3]).build());
 	    	//String pathLocal="/home/saugupta/Downloads/agent64_install_ankur.bin";
 	    	String downloadPathADL=args[4];
 	    	String uploadPathADL=args[5];
