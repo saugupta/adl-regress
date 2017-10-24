@@ -34,12 +34,11 @@ import com.microsoft.azure.datalake.store.oauth2.ClientCredsTokenProvider;
 		private void downloadFile(String pathLocal, String pathADL) throws Exception{
 			long startTime=new Date().getTime();
 			try{
-				InputStream in = client.getReadStream(pathADL);
 			
 				if(!client.checkExists(pathADL)){
-					List<DirectoryEntry> dE=client.enumerateDirectory(pathADL);
 					throw new FileNotFoundException("File not found");
 				}
+				InputStream in = client.getReadStream(pathADL);
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 				String line;
 				PrintStream writer = new PrintStream(pathLocal);
@@ -97,6 +96,10 @@ import com.microsoft.azure.datalake.store.oauth2.ClientCredsTokenProvider;
 			}
 		}		
 	    public static void main(String[] args) throws Exception {
+	    	System.out.println("Arguments passd:");
+			for(String str: args){
+				System.out.println(str);
+			}
 	    	if(args.length<7)
 	    		throw new Exception("Please pass required Parameters: AccountFQDN\t"
 	    				+ "TenantId\t"+"ClientId\t"+"ClientSecret\t"+ "downloadPathOnADL\t"+"uploadPathOnADL\t"+ "pathLocal");

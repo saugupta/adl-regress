@@ -70,7 +70,7 @@ public class DataGenerateToADL {
 			}
 			
 			// Create Output Stream to ADL
-			//client.createDirectory(pathADL.substring(0, pathADL.lastIndexOf('/')-1));
+			client.createDirectory(pathADL.substring(0, pathADL.lastIndexOf('/')-1));
 	        String filename = pathADL;
 	        OutputStream stream = client.createFile(filename, IfExists.OVERWRITE  );
 	        pout = new PrintStream(stream);
@@ -123,11 +123,17 @@ public class DataGenerateToADL {
 		/*
 		 * Arguments to change
 		 */
+		System.out.println("Arguments passd:");
+		for(String str: args){
+			System.out.println(str);
+		}
+		
 		if(args.length<7)
     		throw new Exception("Please pass required Parameters: AccountFQDN\t"
     				+ "TenantId\t"+"ClientId\t"+"ClientSecret\t"+ "NoOfRecords\t" + "OutputFilePathOnADL\t" + "NoOfThreads");
 		Long noOfRecords = (long) 250000000;
 		String pathADL = "/regress-download/dataFile32GB.csv";
+		
 		int noOfThreads=5;
 		noOfRecords=Long.parseLong(args[4]);
 		pathADL=args[5];
