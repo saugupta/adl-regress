@@ -1,3 +1,4 @@
+package com.adl;
 
 public class ADLConfig {
 	private  String accountFQDN; 

@@ -1,3 +1,4 @@
+package com.adl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -217,10 +218,10 @@ class ThreadDataInsertionInADLFile extends Thread {
 					pout.println(sb.toString());
 					//pout.flush();
 					sb.setLength(0);
-					System.out.println("Thread "
-							+ Thread.currentThread().getName()
-							+ " has inserted " + rowsToBeinserted + " at "
-							+ System.currentTimeMillis());
+					//System.out.println("Thread "
+					//		+ Thread.currentThread().getName()
+					//		+ " has inserted " + rowsToBeinserted + " at "
+						//	+ System.currentTimeMillis());
 				}
 			}
 		} catch (Exception e) {
