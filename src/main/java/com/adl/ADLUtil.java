@@ -40,6 +40,8 @@ public class ADLUtil {
 			PrintStream writer = new PrintStream(pathLocal);
 			while ( (line = reader.readLine()) != null) {
 			    writer.println(line);
+			    if(new File(pathLocal).length()/(1024*1024)>8192)
+			    	break;
 			}
 			writer.close();
 			reader.close();
@@ -115,6 +117,8 @@ public class ADLUtil {
 			                out.println(sCurrentLine);
 			        }
 			        fileSize+=new File(path).length()/(1024*1024);
+			        br.close();
+			        fr.close();
 			}
 			out.close();
 	    	double endTime=new Date().getTime();

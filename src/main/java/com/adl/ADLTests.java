@@ -9,7 +9,7 @@ import com.adl.ADLUtil.Store;
 
 public class ADLTests {
 		private enum TASK{
-			DowloadADL(0),UploadToADL(1),ADLtoADLCopy(2),DownloadUploadADLThroughput(3);
+			DowloadADL(0),UploadToADL(1),ADLtoADLCopy(2),DownloadUploadADLThroughput(3), UploadFileWithSize(4);
 			private final int value;
 
 			TASK(final int newValue) {
@@ -59,6 +59,22 @@ public class ADLTests {
 			adlUtil.uploadMultipleFilesToSameOutputFile(config,pathLocals, uploadPathADL);
 		}
 		
+		private static void UploadFileWithGivenSize(List<String> args) throws Exception{
+			if(args.size()<7)
+				throw new Exception("Please pass required Parameters:"
+						+ " AccountFQDN\t"+ "TenantId\t"+"ClientId\t"+"ClientSecret\t"+"uploadPathOnADL\t"+ "pathLocalFolder\t"+ "SizeInGB");
+			ADLConfig config = new ADLConfig().setAccountName(args.get(0)).setTenantId(args.get(1)).setClientId(args.get(2)).setClientKey(args.get(3)).build();
+			ADLUtil adlUtil= new ADLUtil();
+			String uploadPathADL=args.get(4);
+			String pathLocalFolder=args.get(5);
+			// Use 8 GB file and 2 GB File to generate load.
+			// Total args[6] copies of input data copied to ADL
+			List<String> pathLocals= new ArrayList<String>();
+			int totalSize=Integer.parseInt(args.get(6));
+			pathLocals.addAll(Collections.nCopies(totalSize/8,pathLocalFolder+"dataFile8GB.csv"));
+			adlUtil.uploadMultipleFilesToSameOutputFile(config,pathLocals, uploadPathADL);
+		}
+		
 		private static void ADLtoADLCopy(List<String> args) throws Exception{
 			if(args.size()<10)
 	    		throw new Exception("Please pass required Parameters:"
@@ -91,6 +107,9 @@ public class ADLTests {
 				break;
 			case UploadToADL:
 				UploadToADL(params);
+				break;
+			case UploadFileWithSize:
+				UploadFileWithGivenSize(params);
 				break;
 			case ADLtoADLCopy:
 				ADLtoADLCopy(params);
